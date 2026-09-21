@@ -592,8 +592,8 @@ async function uploadFile() {
   const pageCount = await pageCountPromise;
 
   if (error) {
-    console.error(error);
-    status.innerText = "Upload failed ❌";
+    console.error("Supabase upload error:", error);
+    status.innerText = `Upload failed: ${error.message || "Unknown error"} ❌`;
     const p = saveUploadStatus("failed", file.name, pageCount, null, path);
     if (p && typeof p.then === "function") {
       p.then(() => console.log("Saved upload status: failed"))
