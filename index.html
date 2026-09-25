@@ -707,6 +707,25 @@ cleanupOldFiles();
 
 // Run cleanup every hour
 setInterval(cleanupOldFiles, 60 * 60 * 1000);
+  // Remove empty folder placeholder
+function removeEmptyFolderPlaceholder() {
+  document.querySelectorAll('.emptyFolderPlaceholder').forEach(el => {
+    el.remove();
+  });
+}
+
+// Run immediately
+removeEmptyFolderPlaceholder();
+
+// Keep checking in case it is added dynamically
+const placeholderObserver = new MutationObserver(() => {
+  removeEmptyFolderPlaceholder();
+});
+
+placeholderObserver.observe(document.body, {
+  childList: true,
+  subtree: true
+});
 </script>
 
 </body>
