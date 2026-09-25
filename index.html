@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 <title>File Upload</title>
+<link rel="icon" type="image/png" href="https://i.ibb.co/27dwJ8WC/Chat-GPT-Image-Sep-24-2026-03-04-09-PM.png"/>
 
 <!-- Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -200,10 +201,7 @@ input[type="file"] {
 /* FILE LIST */
 .files {
   margin-top: 24px;
-}
-/* HIDE EMPTY FOLDER PLACEHOLDER */
-.emptyFolderPlaceholder {
-  display: none !important;
+  display: none;
 }
 .files h4 {
   margin: 0 0 12px;
@@ -631,17 +629,36 @@ async function uploadFile() {
 /******** LOAD FILES ********/
 async function loadFiles() {
   const list = document.getElementById("fileList");
-  list.innerHTML = "";
+  const filesSection = document.querySelector(".files");
 
-  const { data } = await supabaseClient
+  // Clear old files and hide the section by default
+  list.innerHTML = "";
+  filesSection.style.display = "none";
+
+  const { data, error } = await supabaseClient
     .storage
     .from(BUCKET)
     .list(`orders/${orderId}`);
 
-  if (!data) return;
+  if (error) {
+    console.error("Failed to load files:", error);
+    return;
+  }
 
-  data.forEach(file => {
+  // Supabase can return this hidden placeholder for an empty folder.
+  // Remove it so it is never shown as an uploaded file.
+  const realFiles = (data || []).filter(file =>
+    file.name && file.name !== ".emptyFolderPlaceholder"
+  );
+
+  // No real files: keep the uploaded-files section hidden
+  if (realFiles.length === 0) {
+    return;
+  }
+
+  realFiles.forEach(file => {
     const li = document.createElement("li");
+
     li.innerHTML = `<i class="fa-regular fa-file" style="color: #4a90a4;"></i>`;
 
     const { data: url } = supabaseClient
@@ -657,6 +674,9 @@ async function loadFiles() {
     li.appendChild(a);
     list.appendChild(li);
   });
+
+  // Show the section only when files exist
+  filesSection.style.display = "block";
 }
 
 loadFiles();
@@ -707,25 +727,6 @@ cleanupOldFiles();
 
 // Run cleanup every hour
 setInterval(cleanupOldFiles, 60 * 60 * 1000);
-  // Remove empty folder placeholder
-function removeEmptyFolderPlaceholder() {
-  document.querySelectorAll('.emptyFolderPlaceholder').forEach(el => {
-    el.remove();
-  });
-}
-
-// Run immediately
-removeEmptyFolderPlaceholder();
-
-// Keep checking in case it is added dynamically
-const placeholderObserver = new MutationObserver(() => {
-  removeEmptyFolderPlaceholder();
-});
-
-placeholderObserver.observe(document.body, {
-  childList: true,
-  subtree: true
-});
 </script>
 
 </body>
