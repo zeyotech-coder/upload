@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 <title>File Upload</title>
-<link rel="icon" type="image/png" href="https://i.ibb.co/27dwJ8WC/Chat-GPT-Image-Sep-24-2026-03-04-09-PM.png"/>
 
 <!-- Supabase -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -201,8 +200,8 @@ input[type="file"] {
 /* FILE LIST */
 .files {
   margin-top: 24px;
-  display: none;
 }
+
 .files h4 {
   margin: 0 0 12px;
   font-size: 16px;
@@ -417,7 +416,7 @@ input[type="file"] {
   </div>
 
   <div class="footer">
-    © 2026 Sishant Verma · Created by <a href="https://zeyotech.in" target="_blank">zeyOtech</a>
+    Created by <a href="https://zeyotech.in" target="_blank">zeyOtech</a>
   </div>
 </div>
 
@@ -629,36 +628,17 @@ async function uploadFile() {
 /******** LOAD FILES ********/
 async function loadFiles() {
   const list = document.getElementById("fileList");
-  const filesSection = document.querySelector(".files");
-
-  // Clear old files and hide the section by default
   list.innerHTML = "";
-  filesSection.style.display = "none";
 
-  const { data, error } = await supabaseClient
+  const { data } = await supabaseClient
     .storage
     .from(BUCKET)
     .list(`orders/${orderId}`);
 
-  if (error) {
-    console.error("Failed to load files:", error);
-    return;
-  }
+  if (!data) return;
 
-  // Supabase can return this hidden placeholder for an empty folder.
-  // Remove it so it is never shown as an uploaded file.
-  const realFiles = (data || []).filter(file =>
-    file.name && file.name !== ".emptyFolderPlaceholder"
-  );
-
-  // No real files: keep the uploaded-files section hidden
-  if (realFiles.length === 0) {
-    return;
-  }
-
-  realFiles.forEach(file => {
+  data.forEach(file => {
     const li = document.createElement("li");
-
     li.innerHTML = `<i class="fa-regular fa-file" style="color: #4a90a4;"></i>`;
 
     const { data: url } = supabaseClient
@@ -674,9 +654,6 @@ async function loadFiles() {
     li.appendChild(a);
     list.appendChild(li);
   });
-
-  // Show the section only when files exist
-  filesSection.style.display = "block";
 }
 
 loadFiles();
