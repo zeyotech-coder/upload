@@ -201,8 +201,8 @@ input[type="file"] {
 /* FILE LIST */
 .files {
   margin-top: 24px;
+  display: none;
 }
-
 .files h4 {
   margin: 0 0 12px;
   font-size: 16px;
@@ -389,98 +389,10 @@ input[type="file"] {
     font-size: 11px;
   }
 }
-
-/* ADMIN PAGE */
-.admin-page{display:none;position:fixed;inset:0;z-index:9999;overflow-y:auto;background:linear-gradient(135deg,#080808,#151515,#252525);padding:20px}
-.admin-page.active{display:block}
-.admin-wrap{max-width:1200px;margin:auto}
-.admin-login{max-width:420px;margin:8vh auto;background:#1e1e1ef5;border:1px solid #ffffff1a;border-radius:24px;padding:30px;text-align:center;box-shadow:0 30px 80px #0009}
-.admin-logo{width:64px;height:64px;border-radius:17px;object-fit:cover;margin-bottom:16px}
-.admin-login h1{margin:0 0 8px}.admin-login p{color:#999;margin:0 0 22px}
-.admin-input{width:100%;padding:14px 15px;border-radius:12px;border:1px solid #3b3b3b;background:#111;color:#fff;outline:none}
-.admin-input:focus{border-color:#4a90a4}
-.admin-login-btn,.admin-btn{border:0;border-radius:11px;padding:12px 15px;background:linear-gradient(135deg,#4a90a4,#2c5364);color:#fff;font-weight:700;cursor:pointer}
-.admin-login-btn{width:100%;margin-top:12px}
-.admin-error{color:#ff8585;min-height:20px;margin-top:10px;font-size:13px}
-.admin-dashboard{display:none}.admin-dashboard.show{display:block}
-.admin-topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:22px;padding:17px 20px;background:#191919f5;border:1px solid #ffffff14;border-radius:18px}
-.admin-brand{display:flex;align-items:center;gap:12px}.admin-brand img{width:42px;height:42px;border-radius:11px;object-fit:cover}
-.admin-brand strong{display:block;font-size:18px}.admin-brand small{color:#777}
-.admin-actions{display:flex;gap:8px;flex-wrap:wrap}.admin-btn.secondary{background:#242424;border:1px solid #3a3a3a}.admin-btn.danger{background:#743b3b}
-.admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
-.admin-stat{padding:18px;border-radius:17px;background:#1c1cf5;border:1px solid #ffffff14}.admin-stat i{color:#4a90a4}
-.admin-stat strong{display:block;font-size:27px;margin-top:7px}.admin-stat span{color:#888;font-size:13px}
-.admin-toolbar{display:flex;gap:10px;margin-bottom:18px}.admin-search{flex:1}
-.admin-orders{display:flex;flex-direction:column;gap:14px}
-.admin-order{background:#1b1bf5;border:1px solid #ffffff14;border-radius:17px;overflow:hidden}
-.admin-order-head{padding:15px 17px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #ffffff12}
-.admin-order-title{font-weight:700}.admin-order-title i{color:#4a90a4;margin-right:7px}.admin-order-count{color:#777;font-size:12px;margin-top:3px}
-.admin-file{display:flex;align-items:center;gap:12px;padding:13px 17px;border-bottom:1px solid #ffffff0d}.admin-file:last-child{border-bottom:0}
-.admin-file-icon{color:#4a90a4;font-size:18px}.admin-file-info{min-width:0;flex:1}
-.admin-file-name{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.admin-file-path{color:#666;font-size:11px;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.admin-file-actions{display:flex;gap:6px}.admin-icon-btn{width:36px;height:36px;border-radius:9px;border:1px solid #3b3b3b;background:#242424;color:#fff;cursor:pointer}.admin-icon-btn.delete{color:#ff8585}
-.admin-empty{text-align:center;padding:50px 20px;color:#777;background:#171717;border:1px dashed #333;border-radius:16px}
-.admin-toast{position:fixed;right:20px;bottom:20px;z-index:10001;display:none;padding:12px 15px;border-radius:11px;background:#222;border:1px solid #444}.admin-toast.show{display:block}
-.admin-modal{position:fixed;inset:0;z-index:10002;display:none;align-items:center;justify-content:center;padding:20px;background:#000b}.admin-modal.show{display:flex}
-.admin-modal-card{width:100%;max-width:420px;padding:22px;border-radius:18px;background:#202020;border:1px solid #444}.admin-modal-card h3{margin:0 0 15px}
-.admin-modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}
-@media(max-width:700px){.admin-stats{grid-template-columns:1fr}.admin-topbar{align-items:flex-start;flex-direction:column}.admin-toolbar{flex-direction:column}.admin-file{align-items:flex-start}.admin-file-actions{flex-wrap:wrap}}
-
 </style>
 </head>
 
 <body>
-
-
-<div class="admin-page" id="adminPage">
-  <div class="admin-wrap">
-    <div class="admin-login" id="adminLogin">
-      <img class="admin-logo" src="https://i.ibb.co/27dwJ8WC/Chat-GPT-Image-Sep-24-2026-03-04-09-PM.png" alt="Admin">
-      <h1>Admin Login</h1>
-      <p>Enter the administrator password.</p>
-      <input class="admin-input" id="adminPassword" type="password" placeholder="Admin password" onkeydown="if(event.key==='Enter') adminLoginSubmit()">
-      <button class="admin-login-btn" onclick="adminLoginSubmit()"><i class="fa-solid fa-lock-open"></i> Login</button>
-      <div class="admin-error" id="adminError"></div>
-    </div>
-
-    <div class="admin-dashboard" id="adminDashboard">
-      <div class="admin-topbar">
-        <div class="admin-brand">
-          <img src="https://i.ibb.co/27dwJ8WC/Chat-GPT-Image-Sep-24-2026-03-04-09-PM.png" alt="Logo">
-          <div><strong>MyUploads Admin</strong><small>File Management Dashboard</small></div>
-        </div>
-        <div class="admin-actions">
-          <button class="admin-btn secondary" onclick="adminLoadFiles()"><i class="fa-solid fa-rotate"></i> Refresh</button>
-          <button class="admin-btn secondary" onclick="adminLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
-        </div>
-      </div>
-
-      <div class="admin-stats">
-        <div class="admin-stat"><i class="fa-solid fa-file"></i><strong id="adminTotalFiles">0</strong><span>Total Files</span></div>
-        <div class="admin-stat"><i class="fa-solid fa-folder"></i><strong id="adminTotalOrders">0</strong><span>Total Orders</span></div>
-        <div class="admin-stat"><i class="fa-solid fa-database"></i><strong>printfiles</strong><span>Storage Bucket</span></div>
-      </div>
-
-      <div class="admin-toolbar">
-        <input class="admin-input admin-search" id="adminSearch" placeholder="Search order ID or file name..." oninput="adminRenderFiles()">
-      </div>
-      <div class="admin-orders" id="adminOrders"></div>
-    </div>
-  </div>
-</div>
-
-<div class="admin-toast" id="adminToast"></div>
-<div class="admin-modal" id="adminRenameModal">
-  <div class="admin-modal-card">
-    <h3><i class="fa-solid fa-pen"></i> Rename File</h3>
-    <input class="admin-input" id="adminNewFileName" placeholder="New file name">
-    <div class="admin-modal-actions">
-      <button class="admin-btn secondary" onclick="adminCloseRename()">Cancel</button>
-      <button class="admin-btn" onclick="adminConfirmRename()">Rename</button>
-    </div>
-  </div>
-</div>
 
 <div class="kiosk">
   <div class="header">
@@ -717,17 +629,36 @@ async function uploadFile() {
 /******** LOAD FILES ********/
 async function loadFiles() {
   const list = document.getElementById("fileList");
-  list.innerHTML = "";
+  const filesSection = document.querySelector(".files");
 
-  const { data } = await supabaseClient
+  // Clear old files and hide the section by default
+  list.innerHTML = "";
+  filesSection.style.display = "none";
+
+  const { data, error } = await supabaseClient
     .storage
     .from(BUCKET)
     .list(`orders/${orderId}`);
 
-  if (!data) return;
+  if (error) {
+    console.error("Failed to load files:", error);
+    return;
+  }
 
-  data.forEach(file => {
+  // Supabase can return this hidden placeholder for an empty folder.
+  // Remove it so it is never shown as an uploaded file.
+  const realFiles = (data || []).filter(file =>
+    file.name && file.name !== ".emptyFolderPlaceholder"
+  );
+
+  // No real files: keep the uploaded-files section hidden
+  if (realFiles.length === 0) {
+    return;
+  }
+
+  realFiles.forEach(file => {
     const li = document.createElement("li");
+
     li.innerHTML = `<i class="fa-regular fa-file" style="color: #4a90a4;"></i>`;
 
     const { data: url } = supabaseClient
@@ -743,6 +674,9 @@ async function loadFiles() {
     li.appendChild(a);
     list.appendChild(li);
   });
+
+  // Show the section only when files exist
+  filesSection.style.display = "block";
 }
 
 loadFiles();
@@ -793,133 +727,6 @@ cleanupOldFiles();
 
 // Run cleanup every hour
 setInterval(cleanupOldFiles, 60 * 60 * 1000);
-
-/* ADMIN MODE */
-const ADMIN_PASSWORD = "0001sis";
-const ADMIN_PATH = "/admin";
-let adminOrders = [];
-let adminRenameTarget = null;
-
-function isAdminPath(){
-  const p=window.location.pathname.replace(/\/+$/,"");
-  return p===ADMIN_PATH || p.endsWith(ADMIN_PATH);
-}
-function adminEscape(v){return String(v).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function adminToast(msg){
-  const e=document.getElementById("adminToast");e.innerText=msg;e.classList.add("show");
-  clearTimeout(window.adminToastTimer);window.adminToastTimer=setTimeout(()=>e.classList.remove("show"),3000);
-}
-function adminLoginSubmit(){
-  const p=document.getElementById("adminPassword").value;
-  const e=document.getElementById("adminError");
-  if(p===ADMIN_PASSWORD){
-    sessionStorage.setItem("myuploadsAdmin","true");
-    document.getElementById("adminLogin").style.display="none";
-    document.getElementById("adminDashboard").classList.add("show");
-    e.innerText="";adminLoadFiles();
-  }else{e.innerText="Incorrect admin password.";document.getElementById("adminPassword").value="";document.getElementById("adminPassword").focus()}
-}
-function adminLogout(){sessionStorage.removeItem("myuploadsAdmin");location.reload()}
-
-async function adminLoadFiles(){
-  const c=document.getElementById("adminOrders");
-  c.innerHTML='<div class="admin-empty"><i class="fa-solid fa-spinner fa-spin"></i><p>Loading uploaded files...</p></div>';
-  try{
-    const {data:folders,error}=await supabaseClient.storage.from(BUCKET).list("orders",{limit:1000,sortBy:{column:"name",order:"asc"}});
-    if(error) throw error;
-    adminOrders=[];
-    for(const folder of (folders||[])){
-      if(!folder.name||folder.name===".emptyFolderPlaceholder") continue;
-      const {data:files,error:fileError}=await supabaseClient.storage.from(BUCKET).list(`orders/${folder.name}`,{limit:1000,sortBy:{column:"name",order:"asc"}});
-      if(fileError){console.error(fileError);continue}
-      const real=(files||[]).filter(f=>f.name&&f.name!==".emptyFolderPlaceholder");
-      if(real.length) adminOrders.push({orderId:folder.name,files:real});
-    }
-    adminUpdateStats();adminRenderFiles();adminToast("Files refreshed.");
-  }catch(err){
-    console.error(err);
-    c.innerHTML=`<div class="admin-empty"><i class="fa-solid fa-triangle-exclamation"></i><p>Could not load files.</p><small>${adminEscape(err.message||"Unknown error")}</small></div>`;
-    adminToast("Failed to load files.");
-  }
-}
-function adminUpdateStats(){
-  document.getElementById("adminTotalFiles").innerText=adminOrders.reduce((n,o)=>n+o.files.length,0);
-  document.getElementById("adminTotalOrders").innerText=adminOrders.length;
-}
-function adminRenderFiles(){
-  const c=document.getElementById("adminOrders"),q=document.getElementById("adminSearch").value.trim().toLowerCase();
-  const filtered=adminOrders.map(o=>({orderId:o.orderId,files:o.orderId.toLowerCase().includes(q)?o.files:o.files.filter(f=>f.name.toLowerCase().includes(q))})).filter(o=>o.files.length);
-  if(!filtered.length){c.innerHTML='<div class="admin-empty"><i class="fa-regular fa-folder-open" style="font-size:30px"></i><p>No uploaded files found.</p></div>';return}
-  c.innerHTML=filtered.map(o=>`
-    <div class="admin-order">
-      <div class="admin-order-head">
-        <div><div class="admin-order-title"><i class="fa-solid fa-folder"></i>${adminEscape(o.orderId)}</div><div class="admin-order-count">${o.files.length} file${o.files.length===1?"":"s"}</div></div>
-        <button class="admin-btn danger" onclick="adminDeleteOrder(${JSON.stringify(o.orderId)})"><i class="fa-solid fa-trash"></i> Delete Order</button>
-      </div>
-      ${o.files.map(f=>adminFileRow(o.orderId,f)).join("")}
-    </div>`).join("");
-}
-function adminFileRow(orderId,file){
-  return `<div class="admin-file">
-    <div class="admin-file-icon"><i class="fa-regular fa-file"></i></div>
-    <div class="admin-file-info"><div class="admin-file-name">${adminEscape(file.name)}</div><div class="admin-file-path">orders/${adminEscape(orderId)}/${adminEscape(file.name)}</div></div>
-    <div class="admin-file-actions">
-      <button class="admin-icon-btn" title="Open" onclick="adminOpenFile(${JSON.stringify(orderId)},${JSON.stringify(file.name)})"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-      <button class="admin-icon-btn" title="Rename" onclick="adminOpenRename(${JSON.stringify(orderId)},${JSON.stringify(file.name)})"><i class="fa-solid fa-pen"></i></button>
-      <button class="admin-icon-btn delete" title="Delete" onclick="adminDeleteFile(${JSON.stringify(orderId)},${JSON.stringify(file.name)})"><i class="fa-solid fa-trash"></i></button>
-    </div>
-  </div>`;
-}
-function adminOpenFile(orderId,fileName){
-  const {data}=supabaseClient.storage.from(BUCKET).getPublicUrl(`orders/${orderId}/${fileName}`);
-  if(data?.publicUrl) window.open(data.publicUrl,"_blank"); else adminToast("Could not open file.");
-}
-async function adminDeleteFile(orderId,fileName){
-  if(!confirm(`Delete this file?\n\n${fileName}\n\nThis cannot be undone.`)) return;
-  try{
-    const {error}=await supabaseClient.storage.from(BUCKET).remove([`orders/${orderId}/${fileName}`]);
-    if(error) throw error;
-    adminToast("File deleted.");await adminLoadFiles();
-  }catch(e){console.error(e);adminToast("Delete failed: "+(e.message||"Unknown error"))}
-}
-async function adminDeleteOrder(orderId){
-  const o=adminOrders.find(x=>x.orderId===orderId);if(!o)return;
-  if(!confirm(`Delete ALL ${o.files.length} file(s) in order "${orderId}"?\n\nThis cannot be undone.`))return;
-  try{
-    const {error}=await supabaseClient.storage.from(BUCKET).remove(o.files.map(f=>`orders/${orderId}/${f.name}`));
-    if(error)throw error;adminToast("Order deleted.");await adminLoadFiles();
-  }catch(e){console.error(e);adminToast("Could not delete order.")}
-}
-function adminOpenRename(orderId,fileName){
-  adminRenameTarget={orderId,fileName};
-  document.getElementById("adminNewFileName").value=fileName;
-  document.getElementById("adminRenameModal").classList.add("show");
-  setTimeout(()=>{const i=document.getElementById("adminNewFileName");i.focus();i.select()},50);
-}
-function adminCloseRename(){adminRenameTarget=null;document.getElementById("adminRenameModal").classList.remove("show")}
-async function adminConfirmRename(){
-  if(!adminRenameTarget)return;
-  const newName=document.getElementById("adminNewFileName").value.trim();
-  if(!newName){alert("Enter a file name.");return}
-  if(newName.includes("/")||newName.includes("\\")){alert("File name cannot contain / or \\.");return}
-  const {orderId,fileName}=adminRenameTarget;
-  if(newName===fileName){adminCloseRename();return}
-  try{
-    const {error}=await supabaseClient.storage.from(BUCKET).move(`orders/${orderId}/${fileName}`,`orders/${orderId}/${newName}`);
-    if(error)throw error;adminCloseRename();adminToast("File renamed.");await adminLoadFiles();
-  }catch(e){console.error(e);adminToast("Rename failed: "+(e.message||"Unknown error"))}
-}
-function startAdminMode(){
-  document.querySelector(".kiosk").style.display="none";
-  document.getElementById("adminPage").classList.add("active");
-  if(sessionStorage.getItem("myuploadsAdmin")==="true"){
-    document.getElementById("adminLogin").style.display="none";
-    document.getElementById("adminDashboard").classList.add("show");
-    adminLoadFiles();
-  }
-}
-if(isAdminPath()) startAdminMode();
-
 </script>
 
 </body>
